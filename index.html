@@ -525,35 +525,43 @@
         </div>
       </div>
 
-      <!-- KS3 Ready-to-Submit Experiment Templates Section -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <!-- KS3 Ready-to-Submit Experiment Templates Section — Collapsible Accordion -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+        <!-- Accordion Header / Toggle Button -->
+        <button type="button" onclick="toggleKs3Accordion()" id="ks3-accordion-btn"
+          class="w-full p-5 flex items-center justify-between gap-3 hover:bg-slate-800/40 transition-all text-left">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-950 border border-indigo-700 flex items-center justify-center text-xl shadow-lg shadow-indigo-950/50">
+            <div class="w-10 h-10 rounded-xl bg-indigo-950 border border-indigo-700 flex items-center justify-center text-xl shadow-lg shadow-indigo-950/50 flex-shrink-0">
               🧪
             </div>
             <div>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
                 <h3 class="font-bold text-white text-base">KS3 Ready-to-Submit Practical Templates</h3>
                 <span class="text-[10px] bg-indigo-950 text-indigo-300 border border-indigo-700 px-2.5 py-0.5 rounded-full font-mono font-bold">27 British Curriculum Practicals</span>
                 <span class="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2.5 py-0.5 rounded-full font-mono font-bold">Years 7, 8 & 9</span>
               </div>
-              <p class="text-xs text-slate-400 mt-0.5">Comprehensive British National Curriculum (AQA/Edexcel/Cambridge) experiments across Biology, Chemistry, and Physics. Request instantly with customizable quantities.</p>
+              <p class="text-xs text-slate-400 mt-0.5">Tap to browse Biology, Chemistry & Physics experiments — request instantly with customizable quantities.</p>
             </div>
           </div>
+          <!-- Chevron arrow -->
+          <span id="ks3-chevron" class="text-indigo-400 text-xl flex-shrink-0 transition-transform duration-300">▼</span>
+        </button>
 
-          <!-- Filter buttons -->
-          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
-            <button type="button" onclick="filterKs3Cards('ALL')" id="ks3-f-all" class="px-3 py-1 rounded-lg font-semibold bg-indigo-600 text-white transition-all">All KS3 (27)</button>
-            <button type="button" onclick="filterKs3Cards('Year 7')" id="ks3-f-y7" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 7 (9)</button>
-            <button type="button" onclick="filterKs3Cards('Year 8')" id="ks3-f-y8" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 8 (9)</button>
-            <button type="button" onclick="filterKs3Cards('Year 9')" id="ks3-f-y9" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 9 (9)</button>
+        <!-- Accordion Body — hidden by default -->
+        <div id="ks3-accordion-body" class="hidden border-t border-slate-800">
+          <div class="p-5 space-y-4">
+            <!-- Filter buttons -->
+            <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs w-fit">
+              <button type="button" onclick="filterKs3Cards('ALL')" id="ks3-f-all" class="px-3 py-1 rounded-lg font-semibold bg-indigo-600 text-white transition-all">All KS3 (27)</button>
+              <button type="button" onclick="filterKs3Cards('Year 7')" id="ks3-f-y7" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 7 (9)</button>
+              <button type="button" onclick="filterKs3Cards('Year 8')" id="ks3-f-y8" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 8 (9)</button>
+              <button type="button" onclick="filterKs3Cards('Year 9')" id="ks3-f-y9" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition-all">Year 9 (9)</button>
+            </div>
+            <!-- Templates Grid Container -->
+            <div id="ks3-templates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              <!-- Populated dynamically -->
+            </div>
           </div>
-        </div>
-
-        <!-- Templates Grid Container -->
-        <div id="ks3-templates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          <!-- Populated dynamically -->
         </div>
       </div>
 
@@ -1300,6 +1308,10 @@
             <div class="flex items-center gap-2">
               <button id="toggle-resolved-btn" onclick="toggleConversationStatus()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold border border-slate-700 transition-all">
                 Mark Resolved
+              </button>
+              <!-- Clear messages — visible to teachers only -->
+              <button id="clear-msgs-btn" onclick="clearTeacherMessages()" class="px-3 py-1 bg-red-950/60 hover:bg-red-900/60 text-red-400 rounded-lg text-xs font-semibold border border-red-800/60 transition-all hidden" title="Clear your message history">
+                🗑️ Clear
               </button>
             </div>
           </div>
@@ -2839,7 +2851,42 @@
 
       refreshUI();
       if (typeof addBookingItemRow === 'function') addBookingItemRow();
+
+      // ── LIVE MESSAGES POLLING ─────────────────────────────────────
+      // Refresh conversation UI every 4 seconds so new messages appear live
+      setInterval(() => {
+        if (currentAuthUser && document.getElementById('threads-container')) {
+          renderConversations();
+          renderFloatingChat();
+        }
+      }, 4000);
     });
+
+    // ── KS3 ACCORDION TOGGLE ─────────────────────────────────────────
+    function toggleKs3Accordion() {
+      const body    = document.getElementById('ks3-accordion-body');
+      const chevron = document.getElementById('ks3-chevron');
+      if (!body) return;
+      const isOpen = !body.classList.contains('hidden');
+      body.classList.toggle('hidden', isOpen);
+      if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+      // Populate grid when first opened
+      if (!isOpen && typeof renderKs3TemplatesGrid === 'function') renderKs3TemplatesGrid();
+    }
+
+    // ── CLEAR TEACHER MESSAGES ───────────────────────────────────────
+    function clearTeacherMessages() {
+      if (currentRole !== 'TEACHER') return;
+      const thread = conversations.find(c => c.id === activeThreadId);
+      if (!thread) return;
+      if (!confirm('Clear all messages in this thread? Maryam Selim\'s copies are kept on her console.')) return;
+      thread.messages = [];
+      thread.unread = false;
+      saveAppState();
+      showToast('Messages cleared from your view.');
+      renderConversations();
+    }
+
 
     function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
@@ -5463,6 +5510,12 @@
       const toggleBtn = document.getElementById('toggle-resolved-btn');
       if (toggleBtn) {
         toggleBtn.textContent = thread.status === 'OPEN' ? 'Mark Resolved' : 'Reopen Query';
+      }
+
+      // Show "🗑️ Clear" only for teachers
+      const clearBtn = document.getElementById('clear-msgs-btn');
+      if (clearBtn) {
+        clearBtn.classList.toggle('hidden', currentRole !== 'TEACHER');
       }
 
       const messagesContainer = document.getElementById('chat-messages');
