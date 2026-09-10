@@ -93,21 +93,49 @@
             </button>
           </form>
 
-          <!-- Login Sub-options: Remember Me + Forgot Password -->
-          <div class="flex items-center justify-between mt-2 pt-1 text-[10px] text-slate-400">
+          <!-- Login Sub-options: Remember Me + Forgot Password + Tech Console Direct Link -->
+          <div class="flex flex-wrap items-center justify-between gap-2 mt-2 pt-1 text-[10px] text-slate-400">
             <label class="flex items-center gap-1.5 cursor-pointer hover:text-slate-300">
               <input type="checkbox" id="landing-remember-me" checked class="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-0">
-              <span>Remember my email address</span>
+              <span>Remember me</span>
             </label>
-            <button type="button" onclick="showToast('Password recovery: Please contact Lead Technician Maryam Selim at maryams.nbsm@gmail.com');" class="text-blue-400 hover:underline">
-              Forgotten your password?
+            <button type="button" onclick="quickFillAndLogin('maryamselim', 'password123')" class="px-2.5 py-1 bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-700/80 rounded-lg font-bold flex items-center gap-1 transition-all">
+              <span>🔬</span>
+              <span>Direct Tech Console Login</span>
             </button>
           </div>
         </div>
       </header>
 
+      <!-- HERO: Direct Lead Technician Command Console Launcher Card -->
+      <section class="bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-emerald-400">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-600/20 border-2 border-emerald-500 flex items-center justify-center text-3xl shadow-xl shadow-emerald-950 flex-shrink-0">
+            🛠️
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="text-xs uppercase font-mono px-3 py-0.5 rounded-full bg-emerald-900/80 text-emerald-300 border border-emerald-600 font-extrabold shadow-sm">
+                🔬 Lead Technician Command Console
+              </span>
+              <span class="text-xs text-emerald-400 font-semibold font-mono">Maryam Selim • Controller</span>
+            </div>
+            <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">Full Lab Management & Requisition Control</h2>
+            <p class="text-xs md:text-sm text-slate-300 mt-1 max-w-2xl">
+              Instant 1-click access to manage apparatus inventory, chemicals catalog, stock levels, equipment breakages, and approve teacher experiment requisitions.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" onclick="quickFillAndLogin('maryamselim', 'password123')" class="w-full md:w-auto px-7 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-2xl text-sm font-black shadow-xl shadow-emerald-900/60 border border-emerald-400/60 flex items-center justify-center gap-2.5 transition-all hover:scale-105 active:scale-95 flex-shrink-0 cursor-pointer">
+          <span class="text-lg">🔬</span>
+          <span>Open Tech Console</span>
+          <span class="text-base">&rarr;</span>
+        </button>
+      </section>
+
       <!-- Hero Section (Exact aesthetic and copy inspired by user screenshot) -->
-      <section class="text-center py-6 md:py-8 max-w-4xl mx-auto space-y-4">
+      <section class="text-center py-4 md:py-6 max-w-4xl mx-auto space-y-4">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-800 text-blue-300 text-xs font-semibold mb-1">
           <span>🏛️</span>
           <span>Doha Science Prep Room & Laboratory Requisition Hub</span>
@@ -367,10 +395,6 @@
           <button onclick="switchTab('teacher-portal')" id="tab-teacher-portal" class="tab-btn px-3 py-1.5 text-slate-400 hover:text-white rounded-lg text-xs transition-all flex items-center gap-1 flex-shrink-0">
             👨‍🏫 Portal
           </button>
-          <button onclick="switchTab('messages')" id="tab-messages" class="tab-btn px-3 py-1.5 text-slate-400 hover:text-white rounded-lg text-xs transition-all relative flex-shrink-0">
-            💬 Messages
-            <span id="unread-badge" class="ml-1 px-1.5 py-0.2 rounded-full text-[9px] bg-cyan-500 text-white font-bold">1</span>
-          </button>
         </div>
 
         <!-- Authenticated Profile & Sign Out -->
@@ -506,7 +530,7 @@
       </div>
 
       <!-- Personalized Key Metrics -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
           <span class="text-xs text-slate-400 uppercase font-medium">My Bookings</span>
           <h3 id="tp-stat-total" class="text-2xl font-black text-white mt-1">0</h3>
@@ -521,11 +545,6 @@
           <span class="text-xs text-emerald-400 uppercase font-medium">Ready in Room</span>
           <h3 id="tp-stat-ready" class="text-2xl font-black text-emerald-400 mt-1">0</h3>
           <span class="text-[11px] text-emerald-500/80">Apparatus on trolley</span>
-        </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-xs text-cyan-400 uppercase font-medium">Messages with Maryam</span>
-          <h3 id="tp-stat-messages" class="text-2xl font-black text-cyan-400 mt-1">0</h3>
-          <span class="text-[11px] text-cyan-500/80">Private lab inquiries</span>
         </div>
       </div>
 
@@ -707,49 +726,14 @@
           </div>
         </div>
 
-        <!-- Right 1 Col: Private Chat with Maryam Selim -->
+        <!-- Right 1 Col: Teacher Quick Tools -->
         <div class="space-y-6">
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 font-bold">
-                  🔬
-                </div>
-                <div>
-                  <h4 class="font-bold text-white text-xs">Direct Line to Prep Room</h4>
-                  <p class="text-[10px] text-slate-400">Maryam Selim (Lead Lab Tech)</p>
-                </div>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono">Available</span>
-            </div>
-
-            <div id="tp-direct-chat-box" class="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-              <!-- Dynamically populated -->
-            </div>
-
-            <!-- Quick Inquiry Form for this Teacher -->
-            <form onsubmit="handleTeacherPortalQuickMsg(event)" class="space-y-2 pt-2 border-t border-slate-800">
-              <input
-                type="text"
-                id="tp-quick-msg-input"
-                placeholder="Message Maryam about your practical..."
-                required
-                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-blue-500"
-              />
-              <div class="flex items-center justify-between">
-                <button type="button" onclick="switchTab('messages')" class="text-[11px] text-blue-400 hover:underline">
-                  Full Chat &rarr;
-                </button>
-                <button type="submit" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold shadow">
-                  Send to Maryam ✈️
-                </button>
-              </div>
-            </form>
-          </div>
-
           <!-- Quick Actions Card -->
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-            <h4 class="font-bold text-slate-200 text-xs uppercase tracking-wider">Teacher Quick Tools</h4>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3 shadow-xl">
+            <h4 class="font-bold text-slate-200 text-xs uppercase tracking-wider flex items-center gap-2">
+              <span>⚡</span>
+              <span>Teacher Quick Tools</span>
+            </h4>
             <div class="space-y-2 text-xs">
               <button onclick="openTeacherBookingForm()" class="w-full text-left p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-slate-200 flex items-center justify-between transition-all">
                 <span class="flex items-center gap-2"><span>📅</span> <strong>Book Period 1-7 Practicum</strong></span>
@@ -828,9 +812,9 @@
         </div>
       </div>
 
-      <!-- Quick Metrics Ribbon -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+      <!-- Quick Metrics Ribbon (4 Cards) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between shadow-sm">
           <div>
             <span class="text-[11px] text-slate-400 uppercase font-semibold">Active Inventory</span>
             <h3 id="tech-stat-items" class="text-2xl font-black text-white mt-0.5">10</h3>
@@ -838,7 +822,7 @@
           </div>
           <span class="text-2xl">📦</span>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between shadow-sm">
           <div>
             <span class="text-[11px] text-amber-400 uppercase font-semibold">Teacher Requests</span>
             <h3 id="tech-stat-requests" class="text-2xl font-black text-amber-400 mt-0.5">2</h3>
@@ -846,15 +830,7 @@
           </div>
           <span class="text-2xl">📋</span>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
-          <div>
-            <span class="text-[11px] text-cyan-400 uppercase font-semibold">Teacher Inquiries</span>
-            <h3 id="tech-stat-messages" class="text-2xl font-black text-cyan-400 mt-0.5">2</h3>
-            <span class="text-[10px] text-cyan-500/80 font-medium">Direct Messages</span>
-          </div>
-          <span class="text-2xl">💬</span>
-        </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between shadow-sm">
           <div>
             <span class="text-[11px] text-rose-400 uppercase font-semibold">Low Stock Alerts</span>
             <h3 id="tech-stat-low" class="text-2xl font-black text-rose-400 mt-0.5">0</h3>
@@ -862,7 +838,7 @@
           </div>
           <span class="text-2xl">⚠️</span>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between shadow-sm">
           <div>
             <span class="text-[11px] text-purple-400 uppercase font-semibold">Staff & Members</span>
             <h3 id="tech-stat-users" class="text-2xl font-black text-purple-300 mt-0.5">4</h3>
@@ -991,15 +967,14 @@
 
       </div>
 
-      <!-- Main 2-Column Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+      <!-- Main Requests Queue (Full Width) -->
+      <div class="w-full">
         <!-- COLUMN 1: Teacher Experiment Requests Queue -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div>
               <h3 class="font-bold text-white text-base flex items-center gap-2">
-                📋 Incoming Teacher Requests
+                📋 Incoming Teacher Requests Queue
               </h3>
               <p class="text-xs text-slate-400">Review requested chemicals/gear and update preparation lifecycle</p>
             </div>
@@ -1011,54 +986,10 @@
             </div>
           </div>
 
-          <div id="tech-requests-container" class="space-y-3 max-h-[460px] overflow-y-auto pr-1">
+          <div id="tech-requests-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
             <!-- Injected dynamically -->
           </div>
         </div>
-
-        <!-- COLUMN 2: Teacher Messages & Consultations Inbox -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-              <div>
-                <h3 class="font-bold text-cyan-400 text-base flex items-center gap-2">
-                  💬 Teacher Inquiries & Messages
-                </h3>
-                <p class="text-xs text-slate-400">Receive questions from science teachers and reply directly</p>
-              </div>
-              <span class="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-full font-mono">Live Admin Inbox</span>
-            </div>
-
-            <!-- Inquiries Feed with inline quick reply -->
-            <div id="tech-messages-container" class="space-y-3 max-h-[340px] overflow-y-auto pr-1">
-              <!-- Injected dynamically -->
-            </div>
-          </div>
-
-          <!-- Bottom quick reply bar -->
-          <div class="pt-3 border-t border-slate-800 bg-slate-950/60 p-3 rounded-xl space-y-2">
-            <div class="flex items-center justify-between text-[11px] text-slate-400">
-              <span>Quick reply to selected teacher:</span>
-              <button onclick="switchTab('messages')" class="text-cyan-400 hover:underline">Open Full Chat &rarr;</button>
-            </div>
-            <form onsubmit="handleTechDashboardReply(event)" class="flex items-center gap-2">
-              <input
-                type="text"
-                id="tech-quick-reply-input"
-                placeholder="Type response to teacher (e.g. Apparatus prepared on Trolley 1)..."
-                required
-                class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white outline-none focus:border-cyan-500"
-              />
-              <button
-                type="submit"
-                class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow transition-all"
-              >
-                Send
-              </button>
-            </form>
-          </div>
-        </div>
-
       </div>
 
       <!-- SECTION 3: MASTER INVENTORY COMMAND CENTER -->
@@ -1238,125 +1169,7 @@
 
 
 
-    <!-- ========================================================================= -->
-    <!-- TAB 4: END-TO-END CONVERSATION SYSTEM (MESSAGES) -->
-    <!-- ========================================================================= -->
 
-    <!-- ========================================================================= -->
-    <!-- TAB 4: END-TO-END CONVERSATION SYSTEM (MESSAGES) -->
-    <!-- ========================================================================= -->
-    <div id="view-messages" class="hidden space-y-4">
-
-      <!-- Portal Navigation & Back Bar -->
-      <div class="flex items-center justify-between gap-3">
-        <button onclick="goBack()" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold transition-all group shadow-sm active:scale-95" title="Go back to previous screen">
-          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-          </svg>
-          <span>Back</span>
-        </button>
-        <div class="flex items-center gap-2 text-xs text-slate-400">
-          <span>NBS Labs</span>
-          <span class="text-slate-600">/</span>
-          <span class="text-cyan-400 font-medium">💬 Lab Messages & Inquiries</span>
-        </div>
-      </div>
-
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-3 min-h-[580px]">
-        
-        <!-- Left: Conversations Threads List -->
-        <div class="border-r border-slate-800 bg-slate-950/60 p-4 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-bold text-white">Lab Communications</span>
-                <span class="text-[10px] bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded-full font-mono">E2E Active</span>
-              </div>
-              <button onclick="openNewConversationModal()" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition-all">
-                + New Inquiry
-              </button>
-            </div>
-
-            <!-- Role Context Indicator in Threads -->
-            <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-xs">
-              <span class="text-slate-400">Viewing inbox as:</span>
-              <strong id="msg-current-role-badge" class="text-emerald-400 block font-semibold">🔬 Maryam Selim (Lead Lab Admin)</strong>
-            </div>
-
-            <!-- Thread items container -->
-            <div id="threads-container" class="space-y-2 overflow-y-auto max-h-[380px] pr-1">
-              <!-- Dynamically populated -->
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-500 text-center">
-            NBS Muraikh Science Labs Messaging Channel
-          </div>
-        </div>
-
-        <!-- Right: Active Chat View (2 cols) -->
-        <div class="md:col-span-2 flex flex-col justify-between bg-slate-900/90">
-          
-          <!-- Chat Header -->
-          <div id="chat-header" class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/30">
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 id="chat-subject" class="font-bold text-white text-sm">Acid-Base Titration Setup Query</h3>
-                <span id="chat-status-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800">Open</span>
-              </div>
-              <p id="chat-participants" class="text-xs text-slate-400 mt-0.5">
-                Between <strong class="text-slate-200">Kerry Wood</strong> and <strong class="text-cyan-400">Maryam Selim (Lead Tech)</strong>
-              </p>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <button id="toggle-resolved-btn" onclick="toggleConversationStatus()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold border border-slate-700 transition-all">
-                Mark Resolved
-              </button>
-              <!-- Clear messages — visible to teachers only -->
-              <button id="clear-msgs-btn" onclick="clearTeacherMessages()" class="px-3 py-1 bg-red-950/60 hover:bg-red-900/60 text-red-400 rounded-lg text-xs font-semibold border border-red-800/60 transition-all hidden" title="Clear your message history">
-                🗑️ Clear
-              </button>
-            </div>
-          </div>
-
-          <!-- Chat Messages Body -->
-          <div id="chat-messages" class="p-4 space-y-3 overflow-y-auto flex-1 max-h-[360px]">
-            <!-- Message bubbles injected here -->
-          </div>
-
-          <!-- Quick Response Chips & Input Footer -->
-          <div class="p-3.5 border-t border-slate-800 bg-slate-950/50 space-y-2">
-            <!-- Preset Prompt Chips -->
-            <div class="flex items-center gap-1.5 overflow-x-auto text-[11px] pb-1">
-              <span class="text-slate-500 font-semibold uppercase text-[9px]">Quick:</span>
-              <button onclick="insertQuickMessage('Is the 0.1M standard solution ready?')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 whitespace-nowrap">"Is solution ready?"</button>
-              <button onclick="insertQuickMessage('Apparatus is prepared and placed on Trolley 1 in Lab 101.')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 whitespace-nowrap">"Ready on Trolley 1"</button>
-              <button onclick="insertQuickMessage('Please ensure safety goggles and lab coats are worn.')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 whitespace-nowrap">"Safety reminder"</button>
-            </div>
-
-            <!-- Text input bar -->
-            <form onsubmit="handleSendMessage(event)" class="flex items-center gap-2">
-              <input
-                type="text"
-                id="message-input"
-                placeholder="Type your message to the science department..."
-                required
-                class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white outline-none focus:border-blue-500"
-              />
-              <button
-                type="submit"
-                class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-blue-600/30 transition-all flex items-center gap-1.5"
-              >
-                <span>Send</span> ✈️
-              </button>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
     <!-- /#app-authenticated-container -->
 
     <!-- ========================================================================= -->
@@ -1920,86 +1733,7 @@
       </div>
     </div>
 
-    <!-- ========================================================================= -->
-    <!-- FLOATING QUICK CHAT DRAWER: DIRECT LINE TO MARYAM SELIM (TECH) FROM ANYWHERE -->
-    <!-- ========================================================================= -->
-    <div id="floating-chat-container" class="fixed bottom-5 right-5 z-40 flex flex-col items-end pointer-events-none">
-      
-      <!-- Expanded Floating Mini-Chat Box -->
-      <div id="floating-chat-card" class="hidden pointer-events-auto w-96 max-w-[calc(100vw-2.5rem)] bg-slate-900/95 border border-slate-700 rounded-3xl shadow-2xl shadow-black/80 backdrop-blur-xl flex flex-col overflow-hidden mb-3.5 transition-all">
-        <!-- Floating Chat Header -->
-        <div class="p-3.5 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-emerald-950 border border-emerald-700 flex items-center justify-center text-base shadow-sm relative">
-              🔬
-              <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950"></span>
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <strong class="text-white text-xs font-bold">Maryam Selim</strong>
-                <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">Lead Lab Tech</span>
-              </div>
-              <p class="text-[10px] text-cyan-300">Direct Lab Line • Instant Response</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-1">
-            <button onclick="switchTab('messages'); toggleFloatingChat();" title="Expand to Full Messages View" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-xs transition-all">
-              ⛶
-            </button>
-            <button onclick="toggleFloatingChat()" title="Minimize Chat" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm transition-all">
-              ✕
-            </button>
-          </div>
-        </div>
 
-        <!-- Floating Chat Message Body -->
-        <div id="floating-chat-messages" class="p-3.5 space-y-2.5 overflow-y-auto max-h-64 h-64 bg-slate-900/80 text-xs">
-          <!-- Dynamically populated messages -->
-        </div>
-
-        <!-- Floating Chat Quick Reply Chips -->
-        <div class="px-3 py-1.5 bg-slate-950/70 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto text-[10px]">
-          <span class="text-slate-500 font-bold uppercase text-[9px] flex-shrink-0">Quick:</span>
-          <button type="button" onclick="insertFloatingChip('Is the apparatus trolley prepped?')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 whitespace-nowrap border border-slate-700/60 active:scale-95 transition-all">"Trolley ready?"</button>
-          <button type="button" onclick="insertFloatingChip('Need 4 extra pairs of safety goggles')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 whitespace-nowrap border border-slate-700/60 active:scale-95 transition-all">"+4 goggles"</button>
-          <button type="button" onclick="insertFloatingChip('Can we keep setup for next period?')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 whitespace-nowrap border border-slate-700/60 active:scale-95 transition-all">"Keep setup?"</button>
-          <button type="button" onclick="insertFloatingChip('Practical finished, ready for wash-up')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 whitespace-nowrap border border-slate-700/60 active:scale-95 transition-all">"Ready for wash-up"</button>
-        </div>
-
-        <!-- Floating Chat Input Form -->
-        <form onsubmit="handleFloatingSendMessage(event)" class="p-2.5 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
-          <input
-            type="text"
-            id="floating-chat-input"
-            placeholder="Type message to Maryam..."
-            required
-            class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-cyan-500 font-sans"
-          />
-          <button type="submit" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all flex items-center gap-1">
-            <span>Send</span>
-            <span>✈️</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Collapsed Launcher Button -->
-      <button
-        id="floating-chat-btn"
-        onclick="toggleFloatingChat()"
-        class="pointer-events-auto px-4 py-3 bg-slate-900/95 hover:bg-slate-800 text-white rounded-2xl border border-cyan-500/40 hover:border-cyan-400 shadow-2xl shadow-cyan-950/80 flex items-center gap-3 backdrop-blur-md cursor-pointer transition-all hover:scale-105 active:scale-95 group"
-        title="Open Direct Line to Lead Technician Maryam Selim"
-      >
-        <div class="relative flex items-center justify-center">
-          <span class="text-xl">🔬</span>
-          <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse ring-2 ring-slate-900"></span>
-        </div>
-        <div class="text-left hidden sm:block">
-          <div class="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors">Chat with Maryam (Tech)</div>
-          <div class="text-[10px] text-slate-400">Direct Lab Prep Line</div>
-        </div>
-        <span id="floating-unread-badge" class="px-2 py-0.5 rounded-full text-[10px] bg-cyan-500 text-white font-black">1</span>
-      </button>
-    </div>
 
     <!-- ========================================================================= -->
     <!-- MODAL: TEACHER AUTHENTICATION & CREDENTIALS SWITCHER                      -->
@@ -2855,15 +2589,6 @@
 
       refreshUI();
       if (typeof addBookingItemRow === 'function') addBookingItemRow();
-
-      // ── LIVE MESSAGES POLLING ─────────────────────────────────────
-      // Refresh conversation UI every 4 seconds so new messages appear live
-      setInterval(() => {
-        if (currentAuthUser && document.getElementById('threads-container')) {
-          renderConversations();
-          renderFloatingChat();
-        }
-      }, 4000);
     });
 
     // ── KS3 ACCORDION TOGGLE ─────────────────────────────────────────
@@ -2878,18 +2603,6 @@
       if (!isOpen && typeof renderKs3TemplatesGrid === 'function') renderKs3TemplatesGrid();
     }
 
-    // ── CLEAR TEACHER MESSAGES ───────────────────────────────────────
-    function clearTeacherMessages() {
-      if (currentRole !== 'TEACHER') return;
-      const thread = conversations.find(c => c.id === activeThreadId);
-      if (!thread) return;
-      if (!confirm('Clear all messages in this thread? Maryam Selim\'s copies are kept on her console.')) return;
-      thread.messages = [];
-      thread.unread = false;
-      saveAppState();
-      showToast('Messages cleared from your view.');
-      renderConversations();
-    }
 
 
     function showToast(message, isError = false) {
@@ -3649,6 +3362,9 @@
     }
 
     function switchTab(tabId, pushHistory = true) {
+      if (tabId === 'messages') {
+        return;
+      }
       if (tabId === 'booking') {
         openTeacherBookingForm();
         return;
@@ -3671,8 +3387,7 @@
       const views = [
         'view-tech-console',
         'view-teacher-portal',
-        'view-dashboard',
-        'view-messages'
+        'view-dashboard'
       ];
       views.forEach(v => {
         const el = document.getElementById(v);
@@ -3704,14 +3419,12 @@
       renderQueue();
       renderInventory();
       renderBreakages();
-      renderConversations();
       renderTechDashboard();
       renderTeacherPortal();
       renderKs3TemplatesGrid();
       renderBookingQuickChips();
       updateGoogleProfileUI();
       renderNoticeboard();
-      renderFloatingChat();
       renderStaffManagement();
     }
 
@@ -4387,11 +4100,6 @@
                       <span class="text-slate-600">•</span>
                       <span>Room: <strong class="text-cyan-400">${req.labRoom}</strong></span>
                     </p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <button onclick="openChatWithTechForSession('${req.subjectTopic}')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500 text-cyan-300 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
-                      <span>💬 Message Maryam</span>
-                    </button>
                   </div>
                 </div>
 
@@ -5654,9 +5362,6 @@
       const statReqs = document.getElementById('tech-stat-requests');
       if (statReqs) statReqs.textContent = requests.length;
 
-      const statMsgs = document.getElementById('tech-stat-messages');
-      if (statMsgs) statMsgs.textContent = conversations.length;
-
       const statLow = document.getElementById('tech-stat-low');
       if (statLow) {
         const count = inventory.filter(i => i.currentQuantity <= i.minThreshold).length;
@@ -5664,7 +5369,6 @@
       }
 
       renderTechRequests();
-      renderTechMessages();
       renderTechInventory();
     }
 
