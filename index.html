@@ -795,22 +795,23 @@
             </div>
           <h2 class="text-xl font-black text-white">Full Lab Management Console</h2>
           <p class="text-xs text-slate-300 mt-0.5">
-            Total control: manage inventory (add & delete), approve teacher experiment requests, and handle direct communications.
+            Total control: manage inventory (add & delete), approve teacher experiment requests, and handle laboratory requisitions.
           </p>
         </div>
-
-        <div class="flex items-center gap-2">
-          <button onclick="openAddItemModal()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-1.5">
-            <span>+ Add Item</span>
-          </button>
-          <button onclick="openBulkImportModal()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-700/30 transition-all flex items-center gap-1.5">
-            <span>📊 Import Excel</span>
-          </button>
-          <button onclick="openBreakageModal()" class="px-3.5 py-2 bg-rose-950 text-rose-300 border border-rose-800 hover:bg-rose-900 text-xs font-bold rounded-xl transition-all">
-            <span>💥 Log Breakage</span>
-          </button>
-        </div>
       </div>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button onclick="openAddItemModal()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-1.5">
+          <span>+ Add Item</span>
+        </button>
+        <button onclick="openBulkImportModal()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-700/30 transition-all flex items-center gap-1.5">
+          <span>📊 Import Excel</span>
+        </button>
+        <button onclick="openBreakageModal()" class="px-3.5 py-2 bg-rose-950 text-rose-300 border border-rose-800 hover:bg-rose-900 text-xs font-bold rounded-xl transition-all">
+          <span>💥 Log Breakage</span>
+        </button>
+      </div>
+    </div>
 
       <!-- Quick Metrics Ribbon (4 Cards) -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -1903,6 +1904,131 @@
       </div>
     </div>
 
+    <!-- ========================================================================= -->
+    <!-- MODAL: EDIT EXPERIMENT REQUEST (TEACHER MODIFICATION - NO DELETE ALLOWED) -->
+    <!-- ========================================================================= -->
+    <div id="edit-request-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+        
+        <!-- Modal Header -->
+        <div class="flex items-start justify-between border-b border-slate-800 pb-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-700 flex items-center justify-center text-2xl shadow-lg shadow-blue-950/50 flex-shrink-0">
+              ✏️
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-white text-base">Edit Experiment Requisition</h3>
+                <span class="text-[10px] bg-blue-950 text-blue-300 border border-blue-700 px-2.5 py-0.5 rounded-full font-mono font-bold">Teacher Edit</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Modify scheduled date, period, laboratory room, notes, or apparatus quantities.</p>
+            </div>
+          </div>
+          <button onclick="closeEditRequestModal()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+        </div>
+
+        <form id="edit-request-form" onsubmit="saveEditedRequest(event)" class="space-y-4">
+          <input type="hidden" id="edit-req-id">
+
+          <!-- Experiment Topic -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Practical Topic / Experiment Title *</label>
+            <input type="text" id="edit-req-topic" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white outline-none focus:border-blue-500">
+          </div>
+
+          <!-- Schedule Settings -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Session Date *</label>
+              <input type="date" id="edit-req-date" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Period *</label>
+              <select id="edit-req-period" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white outline-none focus:border-blue-500">
+                <option value="Period 1">Period 1 (07:30 - 08:25)</option>
+                <option value="Period 2">Period 2 (08:25 - 09:20)</option>
+                <option value="Period 3">Period 3 (09:40 - 10:35)</option>
+                <option value="Period 4">Period 4 (10:35 - 11:30)</option>
+                <option value="Period 5">Period 5 (12:00 - 12:55)</option>
+                <option value="Period 6">Period 6 (12:55 - 13:50)</option>
+                <option value="Period 7">Period 7 (13:50 - 14:30)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Laboratory Room *</label>
+              <select id="edit-req-room" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white outline-none focus:border-blue-500">
+                <option value="Lab 101 (Chemistry)">Lab 101 (Chemistry)</option>
+                <option value="Lab 102 (Biology)">Lab 102 (Biology)</option>
+                <option value="Lab 103 (Physics)">Lab 103 (Physics)</option>
+                <option value="Biology Lab 104">Biology Lab 104</option>
+                <option value="Physics Lab 105">Physics Lab 105</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Apparatus Items List -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>⚗️</span>
+                <span>Requested Apparatus & Reagents</span>
+              </label>
+              <button type="button" onclick="openAddExtraItemToEditModal()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 rounded-lg text-xs font-semibold flex items-center gap-1">
+                <span>+</span> Add Item
+              </button>
+            </div>
+
+            <!-- Dynamic extra item selector (hidden by default) -->
+            <div id="edit-extra-item-box" class="hidden bg-slate-950 p-2.5 rounded-xl border border-blue-800/60 flex items-center gap-2">
+              <select id="edit-extra-item-select" class="flex-1 bg-slate-900 border border-slate-800 rounded-lg p-1.5 text-xs text-white outline-none">
+              </select>
+              <input type="number" id="edit-extra-item-qty" min="1" value="1" class="w-16 bg-slate-900 border border-slate-800 rounded-lg p-1.5 text-xs text-white text-center outline-none">
+              <button type="button" onclick="commitAddExtraItemToEdit()" class="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold">Add</button>
+              <button type="button" onclick="document.getElementById('edit-extra-item-box').classList.add('hidden')" class="text-slate-400 hover:text-white p-1 text-xs">Cancel</button>
+            </div>
+
+            <div class="border border-slate-800 rounded-xl overflow-hidden bg-slate-950">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                  <tr>
+                    <th class="p-2.5">Apparatus / Chemical</th>
+                    <th class="p-2.5">Available Stock</th>
+                    <th class="p-2.5 text-center">Quantity</th>
+                    <th class="p-2.5 text-right">Omit</th>
+                  </tr>
+                </thead>
+                <tbody id="edit-items-tbody" class="divide-y divide-slate-800">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Notes for Lead Technician -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Notes / Preparation Instructions for Maryam Selim</label>
+            <textarea id="edit-req-notes" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white outline-none focus:border-blue-500 resize-none"></textarea>
+          </div>
+
+          <!-- Policy notice: Deletion not allowed -->
+          <div class="p-3 rounded-xl bg-amber-950/30 border border-amber-800/50 text-[11px] text-amber-300/90 flex items-center gap-2">
+            <span>ℹ️</span>
+            <span>Policy Note: You can modify date, period, room, and apparatus quantities. Deletion of scheduled lab sessions is strictly reserved for Lead Technician Maryam Selim.</span>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-end gap-3">
+            <button type="button" onclick="closeEditRequestModal()" class="px-4 py-2 text-slate-400 hover:text-white text-xs">
+              Cancel
+            </button>
+            <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2">
+              <span>💾 Save Changes</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
   </div>
 
   <!-- Interactive State Engine -->
@@ -2589,6 +2715,14 @@
 
       refreshUI();
       if (typeof addBookingItemRow === 'function') addBookingItemRow();
+    });
+
+    // ── LIVE REAL-TIME MULTI-TAB STORAGE SYNCHRONIZATION ─────────────
+    window.addEventListener('storage', (e) => {
+      if (e.key === APP_STORAGE_KEY) {
+        loadAppState();
+        refreshUI();
+      }
     });
 
     // ── KS3 ACCORDION TOGGLE ─────────────────────────────────────────
@@ -3687,7 +3821,7 @@
     // =========================================================================
     // LOCALSTORAGE PERSISTENCE ENGINE
     // =========================================================================
-    const APP_STORAGE_KEY = 'nbs_muraikh_labs_v4_auth_store';
+    const APP_STORAGE_KEY = 'nbs_muraikh_labs_v5_auth_store';
 
     function saveAppState() {
       try {
@@ -4101,16 +4235,22 @@
                       <span>Room: <strong class="text-cyan-400">${req.labRoom}</strong></span>
                     </p>
                   </div>
+                  <div class="flex items-center gap-2 flex-shrink-0">
+                    <button onclick="openEditRequestModal('${req.id}')" class="px-3.5 py-1.5 bg-blue-950/80 hover:bg-blue-900 border border-blue-600/70 text-blue-300 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer" title="Edit session date, period, room, or apparatus">
+                      <span>✏️</span>
+                      <span>Edit Details</span>
+                    </button>
+                  </div>
                 </div>
 
-                <!-- Locked Content Notice (Enforcing Post-Submission Immutability) -->
+                <!-- Teacher Editable Notice (Enforcing Edit Allowed, Deletion Restricted) -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] bg-slate-900/60 px-3.5 py-2 rounded-xl border border-slate-800/90 text-slate-400">
                   <div class="flex items-center gap-2 text-slate-300 font-medium">
-                    <span class="text-amber-400">🔒</span>
-                    <span><strong>Request Locked:</strong> Submitted to Science Prep Room & Lead Technician Maryam Selim.</span>
+                    <span class="text-blue-400">✏️</span>
+                    <span><strong>Teacher Editing Enabled:</strong> You can edit schedule & apparatus. Deletion restricted to Lead Technician Maryam Selim.</span>
                   </div>
                   <div class="text-[10px] font-mono text-slate-400">
-                    Content Immutable • Submitted at ${req.submittedAt || '08:00 AM'}
+                    Editable • Submitted at ${req.submittedAt || '08:00 AM'}
                   </div>
                 </div>
 
@@ -4746,6 +4886,185 @@
       }
 
       showToast(`Loaded ${itemsToTransfer.length} items from "${topic}" into your portal booking form.`);
+    }
+
+    // =========================================================================
+    // TEACHER EXPERIMENT REQUISITION EDIT ENGINE (EDITABLE, NO DELETION)
+    // =========================================================================
+    let editModalItems = [];
+
+    function openEditRequestModal(reqId) {
+      const req = requests.find(r => r.id === reqId);
+      if (!req) return;
+
+      document.getElementById('edit-req-id').value = req.id;
+      document.getElementById('edit-req-topic').value = req.subjectTopic || '';
+      document.getElementById('edit-req-date').value = req.date || '';
+      document.getElementById('edit-req-period').value = req.period || 'Period 1';
+      document.getElementById('edit-req-room').value = req.labRoom || 'Lab 101 (Chemistry)';
+      document.getElementById('edit-req-notes').value = req.teacherNotes || '';
+
+      // Populate items
+      editModalItems = (req.items || []).map(ri => {
+        const invItem = inventory.find(i => i.id === ri.itemId);
+        return {
+          itemId: ri.itemId,
+          name: invItem ? invItem.name : 'Item',
+          quantity: ri.quantity || 1
+        };
+      });
+
+      renderEditItemsTable();
+
+      // Populate extra item select
+      const extraSelect = document.getElementById('edit-extra-item-select');
+      if (extraSelect) {
+        extraSelect.innerHTML = inventory.map(i => `<option value="${i.id}">${i.name} (Stock: ${i.currentQuantity} ${i.unit})</option>`).join('');
+      }
+      const extraBox = document.getElementById('edit-extra-item-box');
+      if (extraBox) extraBox.classList.add('hidden');
+
+      const modal = document.getElementById('edit-request-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeEditRequestModal() {
+      const modal = document.getElementById('edit-request-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderEditItemsTable() {
+      const tbody = document.getElementById('edit-items-tbody');
+      if (!tbody) return;
+
+      if (editModalItems.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-slate-500">No items selected. Click "+ Add Item" above.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = editModalItems.map((it, idx) => {
+        const invItem = inventory.find(i => i.id === it.itemId);
+        const stock = invItem ? `${invItem.currentQuantity} ${invItem.unit}` : 'N/A';
+        const unit = invItem ? invItem.unit : 'units';
+        return `
+          <tr class="hover:bg-slate-900/50 transition-colors">
+            <td class="p-2.5 font-medium text-white">${it.name}</td>
+            <td class="p-2.5 text-slate-400 font-mono text-[11px]">${stock}</td>
+            <td class="p-2.5">
+              <div class="flex items-center justify-center gap-1.5">
+                <button type="button" onclick="changeEditItemQty(${idx}, -1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs active:scale-95 transition-all">-</button>
+                <span class="w-16 text-center font-bold font-mono text-white text-xs">${it.quantity} ${unit}</span>
+                <button type="button" onclick="changeEditItemQty(${idx}, 1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs active:scale-95 transition-all">+</button>
+              </div>
+            </td>
+            <td class="p-2.5 text-right">
+              <button type="button" onclick="removeEditItem(${idx})" class="text-rose-400 hover:text-rose-300 font-bold text-xs p-1" title="Remove item">✕</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function changeEditItemQty(idx, delta) {
+      if (!editModalItems[idx]) return;
+      const invItem = inventory.find(i => i.id === editModalItems[idx].itemId);
+      const newQty = editModalItems[idx].quantity + delta;
+      if (newQty <= 0) {
+        removeEditItem(idx);
+        return;
+      }
+      if (invItem && newQty > invItem.currentQuantity) {
+        showToast(`Stock limit: Only ${invItem.currentQuantity} ${invItem.unit} available.`, true);
+        return;
+      }
+      editModalItems[idx].quantity = newQty;
+      renderEditItemsTable();
+    }
+
+    function removeEditItem(idx) {
+      editModalItems.splice(idx, 1);
+      renderEditItemsTable();
+    }
+
+    function openAddExtraItemToEditModal() {
+      const box = document.getElementById('edit-extra-item-box');
+      if (box) box.classList.toggle('hidden');
+    }
+
+    function commitAddExtraItemToEdit() {
+      const select = document.getElementById('edit-extra-item-select');
+      const qtyInput = document.getElementById('edit-extra-item-qty');
+      if (!select || !qtyInput) return;
+
+      const itemId = select.value;
+      const qty = parseInt(qtyInput.value) || 1;
+      const invItem = inventory.find(i => i.id === itemId);
+      if (!invItem) return;
+
+      const existing = editModalItems.find(i => i.itemId === itemId);
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        editModalItems.push({
+          itemId: invItem.id,
+          name: invItem.name,
+          quantity: qty
+        });
+      }
+
+      const box = document.getElementById('edit-extra-item-box');
+      if (box) box.classList.add('hidden');
+      renderEditItemsTable();
+      showToast(`Added ${qty} ${invItem.unit} of "${invItem.name}".`);
+    }
+
+    function saveEditedRequest(e) {
+      e.preventDefault();
+      const reqId = document.getElementById('edit-req-id').value;
+      const req = requests.find(r => r.id === reqId);
+      if (!req) {
+        showToast('Request not found.', true);
+        return;
+      }
+
+      const topic = document.getElementById('edit-req-topic').value.trim();
+      const date = document.getElementById('edit-req-date').value;
+      const period = document.getElementById('edit-req-period').value;
+      const room = document.getElementById('edit-req-room').value;
+      const notes = document.getElementById('edit-req-notes').value.trim();
+
+      if (!topic || !date) {
+        showToast('Please provide both experiment topic and date.', true);
+        return;
+      }
+
+      if (editModalItems.length === 0) {
+        showToast('Please include at least one apparatus item.', true);
+        return;
+      }
+
+      // Check for room clash with other requests (excluding self)
+      const clash = requests.find(r => r.id !== reqId && r.date === date && r.period === period && r.labRoom === room);
+      if (clash) {
+        showToast(`❌ Room Clash: ${room} is already reserved for ${period} on ${date} by ${clash.teacherName}!`, true);
+        return;
+      }
+
+      const editTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      req.subjectTopic = topic;
+      req.date = date;
+      req.period = period;
+      req.labRoom = room;
+      req.teacherNotes = notes;
+      req.items = editModalItems.map(it => ({ itemId: it.itemId, quantity: it.quantity }));
+      req.lastEditedAt = editTime;
+
+      saveAppState();
+      refreshUI();
+      closeEditRequestModal();
+      playChime();
+      showToast(`✅ Experiment "${topic}" updated! Maryam Selim's queue refreshed.`);
     }
 
     function loadKs3TemplateIntoBooking(templateId) {
@@ -5414,10 +5733,10 @@
           statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">Completed / Archived</span>';
         }
 
-        const itemsPills = req.items.map(ri => {
+        const itemsPills = (req.items || []).map(ri => {
           const it = inventory.find(i => i.id === ri.itemId);
           return `<span class="bg-slate-900 px-2 py-0.5 rounded text-[11px] border border-slate-800 text-slate-300">
-            ${it ? it.name : 'Item'}: <strong class="text-white">${ri.quantity} ${it ? it.unit : ''}</strong>
+            ${it ? it.name : (ri.name || 'Item')}: <strong class="text-white">${ri.quantity} ${it ? it.unit : ''}</strong>
           </span>`;
         }).join(' ');
 
@@ -5434,16 +5753,13 @@
                 </div>
               </div>
               <div class="flex items-center gap-1.5 flex-shrink-0">
-                <button onclick="openTechChatWithTeacher('${req.teacherName}', '${req.subjectTopic}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg text-xs font-semibold border border-slate-700 transition-all flex items-center gap-1">
-                  <span>💬 Message</span>
-                </button>
                 ${actionButtons}
               </div>
             </div>
 
             <div class="pt-1.5 border-t border-slate-900 flex flex-wrap gap-1.5 items-center">
               <span class="text-[10px] text-slate-500 uppercase font-bold">Apparatus:</span>
-              ${itemsPills}
+              ${itemsPills || '<span class="text-[10px] text-slate-500 italic">No specific apparatus items listed</span>'}
             </div>
 
             ${req.teacherNotes ? `<p class="text-[11px] bg-slate-900 p-2 rounded text-slate-300 border border-slate-800/80">📝 Note: ${req.teacherNotes}</p>` : ''}
