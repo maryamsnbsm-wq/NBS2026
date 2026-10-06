@@ -8,14 +8,314 @@
     /* Custom scrollbar and animations */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.4); border-radius: 3px; }
     .tab-active { background-color: #2563eb !important; color: white !important; font-weight: 600; }
     /* Prevent horizontal overflow globally */
     html, body { overflow-x: hidden; max-width: 100vw; }
     * { box-sizing: border-box; }
+
+    /* ========================================================================= */
+    /* 🌟 PSYCHOLOGY-INFORMED HYBRID (LIGHT & DARK) THEME FOR NBS MURAIKH LABS   */
+    /* Designed for ocular wellness, high legibility, and executive science UX   */
+    /* ========================================================================= */
+
+    body.hybrid-theme {
+      background-color: #f1f5f9 !important;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.7) 0px, transparent 55%),
+        radial-gradient(at 100% 0%, rgba(236, 253, 245, 0.7) 0px, transparent 55%),
+        radial-gradient(at 50% 100%, rgba(241, 245, 249, 0.95) 0px, transparent 60%) !important;
+      color: #334155 !important;
+    }
+
+    /* 1. DARK ANCHORS: Deep Navy & Emerald accents for authority and grounding */
+    .dark-anchor {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2) !important;
+    }
+    .dark-anchor h1, .dark-anchor h2, .dark-anchor h3, .dark-anchor h4, .dark-anchor strong {
+      color: #ffffff !important;
+    }
+    .dark-anchor p, .dark-anchor span.text-slate-300, .dark-anchor span.text-slate-400 {
+      color: #cbd5e1 !important;
+    }
+    .dark-anchor input {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #ffffff !important;
+    }
+    .dark-anchor input::placeholder {
+      color: #64748b !important;
+    }
+
+    /* 2. ELEVATED CONTENT CARDS: Pure luminous white with soothing slate borders */
+    body.hybrid-theme .bg-slate-900:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-950:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-900\/60:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-900\/70:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-900\/80:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-900\/90:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-950\/60:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-950\/70:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-950\/80:not(.dark-anchor):not(.dark-anchor *),
+    body.hybrid-theme .bg-slate-950\/90:not(.dark-anchor):not(.dark-anchor *) {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #334155 !important;
+      box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.05), 0 1px 3px 0 rgba(15, 23, 42, 0.03) !important;
+    }
+
+    /* Modals backdrop & modal dialog */
+    body.hybrid-theme div[id$="-modal"] {
+      background-color: rgba(15, 23, 42, 0.65) !important;
+      backdrop-filter: blur(8px) !important;
+    }
+    body.hybrid-theme div[id$="-modal"] > div.bg-slate-900 {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #1e293b !important;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+    }
+
+    /* 3. HIGH-CONTRAST READABLE TYPOGRAPHY INSIDE LIGHT CARDS */
+    body.hybrid-theme *:not(.dark-anchor):not(.dark-anchor *) > .text-white,
+    body.hybrid-theme .text-white:not(.dark-anchor):not(.dark-anchor *):not(button *):not(button):not([class*="bg-blue-"]):not([class*="bg-emerald-"]):not([class*="bg-indigo-"]):not([class*="bg-purple-"]) {
+      color: #0f172a !important;
+    }
+    body.hybrid-theme .text-slate-100:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #0f172a !important;
+    }
+    body.hybrid-theme .text-slate-200:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #1e293b !important;
+    }
+    body.hybrid-theme .text-slate-300:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #334155 !important;
+    }
+    body.hybrid-theme .text-slate-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #64748b !important;
+    }
+    body.hybrid-theme .text-slate-500:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #64748b !important;
+    }
+    body.hybrid-theme .text-cyan-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #0284c7 !important;
+    }
+    body.hybrid-theme .text-cyan-300:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #0369a1 !important;
+    }
+    body.hybrid-theme .text-emerald-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #059669 !important;
+    }
+    body.hybrid-theme .text-emerald-300:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #047857 !important;
+    }
+    body.hybrid-theme .text-amber-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #b45309 !important;
+    }
+    body.hybrid-theme .text-blue-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #2563eb !important;
+    }
+    body.hybrid-theme .text-purple-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #7c3aed !important;
+    }
+    body.hybrid-theme .text-purple-300:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #6d28d9 !important;
+    }
+    body.hybrid-theme .text-rose-400:not(.dark-anchor):not(.dark-anchor *):not(button *) {
+      color: #e11d48 !important;
+    }
+
+    /* Hero section titles & headings on the light canvas */
+    body.hybrid-theme #view-auth-landing h1.text-white {
+      color: #0f172a !important;
+    }
+    body.hybrid-theme #view-auth-landing p.text-slate-300 {
+      color: #475569 !important;
+    }
+    body.hybrid-theme #view-auth-landing strong.text-white {
+      color: #0f172a !important;
+    }
+    body.hybrid-theme #view-auth-landing #contact-faq {
+      border-color: #cbd5e1 !important;
+      color: #64748b !important;
+    }
+
+    /* 4. FORM INPUTS & SELECTS: Crisp white, soft slate borders, high contrast */
+    body.hybrid-theme input:not(.dark-anchor input):not(header input),
+    body.hybrid-theme select:not(.dark-anchor select),
+    body.hybrid-theme textarea:not(.dark-anchor textarea) {
+      background-color: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+    }
+    body.hybrid-theme input:not(.dark-anchor input):focus,
+    body.hybrid-theme select:not(.dark-anchor select):focus,
+    body.hybrid-theme textarea:not(.dark-anchor textarea):focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+      outline: none !important;
+    }
+    body.hybrid-theme input::placeholder,
+    body.hybrid-theme textarea::placeholder {
+      color: #94a3b8 !important;
+    }
+
+    /* 5. TABLES: Clean slate header, pure white rows, smooth hover */
+    body.hybrid-theme table {
+      border-color: #e2e8f0 !important;
+    }
+    body.hybrid-theme thead,
+    body.hybrid-theme thead.bg-slate-950 {
+      background-color: #f8fafc !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      color: #475569 !important;
+    }
+    body.hybrid-theme thead th {
+      color: #475569 !important;
+      font-weight: 700 !important;
+    }
+    body.hybrid-theme tbody tr {
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+    body.hybrid-theme tbody tr:hover {
+      background-color: #f8fafc !important;
+    }
+    body.hybrid-theme tbody td {
+      color: #334155 !important;
+    }
+    body.hybrid-theme tbody td .text-white {
+      color: #0f172a !important;
+    }
+
+    /* 6. SECONDARY BUTTONS & PILLS */
+    body.hybrid-theme button.bg-slate-900\/90:not(.dark-anchor button),
+    body.hybrid-theme button.bg-slate-900:not(.dark-anchor button),
+    body.hybrid-theme button.bg-slate-800:not(.dark-anchor button) {
+      background-color: #ffffff !important;
+      color: #334155 !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.hybrid-theme button.bg-slate-900\/90:not(.dark-anchor button):hover,
+    body.hybrid-theme button.bg-slate-900:not(.dark-anchor button):hover,
+    body.hybrid-theme button.bg-slate-800:not(.dark-anchor button):hover {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+      border-color: #94a3b8 !important;
+    }
+
+    /* Protect primary action buttons */
+    body.hybrid-theme button[class*="bg-blue-600"],
+    body.hybrid-theme button[class*="bg-emerald-600"],
+    body.hybrid-theme button[class*="bg-emerald-700"],
+    body.hybrid-theme button[class*="bg-indigo-600"],
+    body.hybrid-theme button[class*="bg-purple-600"],
+    body.hybrid-theme button[class*="from-blue-"],
+    body.hybrid-theme button[class*="from-emerald-"] {
+      color: #ffffff !important;
+    }
+    body.hybrid-theme button[class*="bg-blue-600"] *,
+    body.hybrid-theme button[class*="bg-emerald-600"] *,
+    body.hybrid-theme button[class*="bg-indigo-600"] *,
+    body.hybrid-theme button[class*="bg-purple-600"] * {
+      color: #ffffff !important;
+    }
+
+    /* 7. PSYCHOLOGICAL STATUS BADGES: Soothing pastels with clear contrast */
+    body.hybrid-theme span[class*="bg-amber-950"],
+    body.hybrid-theme div[class*="bg-amber-950"]:not(.dark-anchor) {
+      background-color: #fffbeb !important;
+      color: #b45309 !important;
+      border-color: #fde68a !important;
+    }
+    body.hybrid-theme span[class*="bg-blue-950"],
+    body.hybrid-theme div[class*="bg-blue-950"]:not(.dark-anchor) {
+      background-color: #eff6ff !important;
+      color: #1d4ed8 !important;
+      border-color: #bfdbfe !important;
+    }
+    body.hybrid-theme span[class*="bg-emerald-950"],
+    body.hybrid-theme div[class*="bg-emerald-950"]:not(.dark-anchor) {
+      background-color: #ecfdf5 !important;
+      color: #047857 !important;
+      border-color: #a7f3d0 !important;
+    }
+    body.hybrid-theme span[class*="bg-purple-950"],
+    body.hybrid-theme div[class*="bg-purple-950"]:not(.dark-anchor) {
+      background-color: #faf5ff !important;
+      color: #6b21a8 !important;
+      border-color: #e9d5ff !important;
+    }
+    body.hybrid-theme span[class*="bg-rose-950"],
+    body.hybrid-theme div[class*="bg-rose-950"]:not(.dark-anchor) {
+      background-color: #fff1f2 !important;
+      color: #be123c !important;
+      border-color: #fecdd3 !important;
+    }
+    body.hybrid-theme span[class*="bg-cyan-950"]:not(.dark-anchor *),
+    body.hybrid-theme div[class*="bg-cyan-950"]:not(.dark-anchor) {
+      background-color: #ecfeff !important;
+      color: #0e7490 !important;
+      border-color: #a5f3fc !important;
+    }
+    body.hybrid-theme span[class*="bg-indigo-950"],
+    body.hybrid-theme div[class*="bg-indigo-950"]:not(.dark-anchor) {
+      background-color: #eef2ff !important;
+      color: #3730a3 !important;
+      border-color: #c7d2fe !important;
+    }
+
+    /* Steppers inside tables and cards */
+    body.hybrid-theme button[class*="bg-emerald-950"] {
+      background-color: #ecfdf5 !important;
+      color: #047857 !important;
+      border-color: #a7f3d0 !important;
+    }
+    body.hybrid-theme button[class*="bg-blue-950"] {
+      background-color: #eff6ff !important;
+      color: #1d4ed8 !important;
+      border-color: #bfdbfe !important;
+    }
+    body.hybrid-theme button[class*="bg-rose-950"] {
+      background-color: #fff1f2 !important;
+      color: #be123c !important;
+      border-color: #fecdd3 !important;
+    }
+    body.hybrid-theme .inline-flex.items-center.gap-1.bg-slate-950 {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    /* Apparatus pills inside request cards */
+    body.hybrid-theme #tech-requests-container span[class*="bg-slate-900"],
+    body.hybrid-theme #tp-requests-container span[class*="bg-slate-900"],
+    body.hybrid-theme #ks3-templates-grid span[class*="bg-slate-900"] {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+    body.hybrid-theme #tech-requests-container span[class*="bg-slate-900"] strong,
+    body.hybrid-theme #tp-requests-container span[class*="bg-slate-900"] strong,
+    body.hybrid-theme #ks3-templates-grid span[class*="bg-slate-900"] strong {
+      color: #0f172a !important;
+    }
+
+    /* Role banner active */
+    body.hybrid-theme #role-banner {
+      background-color: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+      color: #065f46 !important;
+    }
+    body.hybrid-theme #role-banner span.font-mono {
+      color: #047857 !important;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased p-2 md:p-4">
+<body class="hybrid-theme min-h-screen font-sans antialiased p-2 md:p-4">
 
   <!-- Main Container -->
   <div class="w-full max-w-6xl mx-auto space-y-4">
@@ -26,7 +326,7 @@
     <div id="view-auth-landing" class="space-y-8 animate-fadeIn">
       
       <!-- Top LabLogger-style Header with Quick Login -->
-      <header class="bg-slate-900/90 backdrop-blur border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6">
+      <header class="dark-anchor bg-slate-900/90 backdrop-blur border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6">
         
         <!-- Left: Branding & Sub-navigation -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto justify-between lg:justify-start">
@@ -108,7 +408,7 @@
       </header>
 
       <!-- HERO: Direct Lead Technician Command Console Launcher Card -->
-      <section class="bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-emerald-400">
+      <section class="dark-anchor bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:border-emerald-400">
         <div class="flex items-center gap-4">
           <div class="w-16 h-16 rounded-2xl bg-emerald-600/20 border-2 border-emerald-500 flex items-center justify-center text-3xl shadow-xl shadow-emerald-950 flex-shrink-0">
             🛠️
@@ -368,7 +668,7 @@
     <div id="app-authenticated-container" class="hidden space-y-6">
 
       <!-- Top Navigation & Role Switcher -->
-      <header class="bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-xl flex flex-wrap items-center justify-between gap-3">
+      <header class="dark-anchor bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-xl flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-bold text-lg">
             ⚗️
@@ -460,7 +760,7 @@
       </div>
 
       <!-- Live Prep Room Broadcast Noticeboard -->
-      <div id="tp-noticeboard" class="bg-gradient-to-r from-cyan-950/70 via-slate-900 to-blue-950/70 border border-cyan-800/60 rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div id="tp-noticeboard" class="dark-anchor bg-gradient-to-r from-cyan-950/70 via-slate-900 to-blue-950/70 border border-cyan-800/60 rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl bg-cyan-950 border border-cyan-700 flex items-center justify-center text-lg shadow-sm flex-shrink-0">
             📢
@@ -481,7 +781,7 @@
       </div>
 
       <!-- Teacher Profile Banner with Authentic RBAC Authentication -->
-      <div class="bg-gradient-to-r from-blue-950/90 via-slate-900 to-indigo-950/90 border border-blue-800/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5">
+      <div class="dark-anchor bg-gradient-to-r from-blue-950/90 via-slate-900 to-indigo-950/90 border border-blue-800/50 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div class="flex items-center gap-4">
           <button onclick="goBack()" class="w-12 h-12 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center transition-all group shadow-md active:scale-95 flex-shrink-0" title="Back to previous screen">
             <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -779,7 +1079,7 @@
       </div>
 
       <!-- Admin Header Bar -->
-      <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-blue-950/80 border border-emerald-800/50 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="dark-anchor bg-gradient-to-r from-emerald-950/80 via-slate-900 to-blue-950/80 border border-emerald-800/50 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center gap-4">
           <button onclick="goBack()" class="w-12 h-12 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center transition-all group shadow-md active:scale-95 flex-shrink-0" title="Back to previous screen">
             <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -850,7 +1150,7 @@
       </div>
 
       <!-- Prep Room Broadcast Noticeboard Manager -->
-      <div class="bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-800/50 rounded-2xl p-4 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div class="dark-anchor bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-800/50 rounded-2xl p-4 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-700 flex items-center justify-center text-xl shadow flex-shrink-0">
             📢
